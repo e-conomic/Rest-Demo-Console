@@ -184,7 +184,13 @@
 				$("#pathhelp > .question-circle").click(function() {
 					helpurl = jQuery('#requestpath').val();
 					if(typeof helpurl !== 'undefined'){
-					   helpurlslice = helpurl.slice(0,helpurl.indexOf("/"));
+						if (helpurl.indexOf("/") > -1) {
+							helpurlslice = helpurl.slice(0,helpurl.indexOf("/"));
+						}
+						else {
+							helpurlslice = helpurl;
+						}
+					   
 					 };
 					restdocs = 'http://restdocs.e-conomic.com/#';
 					window.open(restdocs + helpurlslice);
