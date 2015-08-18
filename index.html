@@ -116,7 +116,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<h1 class="hs2">REST Demo</h1>
 				<button class="btn-fullscreen">Toggle full width</button><br>
 				<span class="md_input_t1 oj_static" onclick="update('')" title="Click to go to root" style="cursor: hand;cursor: pointer;">https://restapi.e-conomic.com/</span> <input id="requestpath" class="md_input_w3 md_input_t1" type="text" placeholder="products/" size="20" />
-				<i id="pathhelp"><span  class="question-circle">?</span></i><span class="md_input_t1 oj_static">?demo=true</span> <input id="parameters" class="md_input_w3 md_input_t1" type="text" placeholder="&filter=productNumber$lt:102" size="20" /> <i id="filterhelp"><span  class="question-circle">?</span></i> <button onclick="interactive_call();return false;" class="md_but_t2 md_rad2 fs8">Go</button>
+				<i id="pathhelp"><span  class="question-circle">?</span></i><span class="md_input_t1 oj_static">?demo=true</span> <input id="parameters" class="md_input_w3 md_input_t1" type="text" placeholder="&filter=productNumber$lt:102" size="20" /> <i id="filterhelp"><span  class="question-circle">?</span></i> <button onclick="interactive_call();save_history();return false;" class="md_but_t2 md_rad2 fs8">Go</button>
 			<br>
 			<span style="font: normal 0.8em/1.5em 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;">Examples? <a onclick="update('products', '&filter=productNumber$gt:112')">ProductNumbers greater than 112</a> or perhaps <a  onclick="update('invoices-experimental/drafts', '&filter=date$eq:2014-11-21')">Invoice drafts from Nov. 21st 2014</a> or even <a onclick="update('invoices-experimental/drafts', '&sort=customer.customerNumber')">sort invoice drafts by customerNumber</a></span>
 			<br><br>
@@ -132,6 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 			    function interactive_call(){
 			        var content = jQuery('#requestpath').val()
+			        var parameters = jQuery('#parameters').val()
 
 			        //Default content for path
 			        if(content == 'banana'){
@@ -153,7 +154,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			        //start på else
 			        	$('.easter').attr("src", " ");
 			        	$('.easter').remove();
-			        	var parameters = jQuery('#parameters').val()
 			        	var call_url = 'https://restapi.e-conomic.com/' + content + '?demo=true' + parameters;
 			        	jQuery.ajax({ dataType: 'json', url: call_url, context: document.body }).complete(function(data) {
 
@@ -179,7 +179,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 										thispath = str.slice(31, str.indexOf('?'))
 										//The parameters presume that we cut away ?demo=true as we've decided this is a static part of our REST demo. The last character being cut off is the doublequote around the JSON string.
 										parameters = str.slice( str.indexOf("&"), -1 )
-			                   			$( this ).wrap( '<a onclick="update(' + "'" + thispath + "'" + ',' + "'" + parameters + "'" + '); save_history();"></a>' );
+			                   			$( this ).wrap( '<a onclick="update(' + "'" + thispath + "'" + ',' + "'" + parameters + "'" + ')"></a>' );
 			                		}
 			             		});
 
