@@ -191,7 +191,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     			//Listener for browser history navigation
     			window.onpopstate = function(event) {
-	  				console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+	  				//console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 	  				jQuery('#requestpath').val(event.state);
 	  				interactive_call();
 				};
