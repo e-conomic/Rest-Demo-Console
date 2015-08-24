@@ -106,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			<div class="cell s1of1" id="demo">
 				<h1 class="hs2">REST Demo</h1>
 				
-				<div class="oj_static" onclick="restget('')" style="width: 220px; border-radius: 3px 0 0 0" title="Click to go to root" style="cursor: hand;cursor: pointer;"><p style="cursor: hand;cursor: pointer;">https://restapi.e-conomic.com</p></div>
+				<div class="oj_static" onclick="restget('')" style="width: 220px; border-radius: 3px 0 0 0" title="Click to go to root" style="cursor: hand;cursor: pointer;"><p style="cursor: hand;cursor: pointer;">https://restapi.e-conomic.com/</p></div>
 				<div class="inputholder"><input id="requestpath" class="md_input_w3 md_input_t1" type="text" placeholder="products/" size="20" /><i id="pathhelp"><span class="question-circle">?</span></i></div>
 				<div class="oj_static" style="width: 100px;">?demo=true</div>
 				<div class="inputholder"><input id="parameters" class="md_input_w3 md_input_t1" type="text" placeholder="&filter=productNumber$lt:102" size="20" /><i id="filterhelp"><span class="question-circle">?</span></i></div>
@@ -114,7 +114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<br>
 				<div class="info">Examples? <a onclick="restget('products', '&filter=productNumber$gt:112')">ProductNumbers greater than 112</a> or perhaps <a  onclick="restget('invoices-experimental/drafts', '&filter=date$eq:2014-11-21')">Invoice drafts from Nov. 21st 2014</a> or even <a onclick="restget('invoices-experimental/drafts', '&sort=customer.customerNumber')">sort invoice drafts by customerNumber</a></div>
 				
-				<input class="copyme" style="display:none" />
+				<input class="copyme" style="display:block" />
 				<div class="responsetools"><div class="httpstatus"></div><div class="fullpath"></div><button class="copybtn md_but_t2 fs8">copy url</button></div>
 				
 				<pre id="restcontainer"><button class="btn-fullscreen">Toggle full width</button><code id="output" class="json">...</code></pre>
@@ -154,17 +154,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			        	$('.easter').attr("src", " ");
 			        	$('.easter').remove();
 			        	var call_url = 'https://restapi.e-conomic.com/' + content + '?demo=true' + parameters;
-			        	jQuery('.fullpath').text(call_url);
+			        	//jQuery('.fullpath').text(call_url);
+
+			        	//breadcrumb path
+						var crumbPath = "";
+						var href = content;
+						
+						var s = href.split("/");
+						for (var i=0;i<(s.length);i++) {
+						crumbPath+=" / <a onclick=\"restget(\'"+href.substring(0,href.indexOf("/"+s[i])+s[i].length+1)+"\',\'"+parameters+"')\">"+s[i]+"</a>";
+						}
+						var crumbUrl = "https://" + '<a onclick="restget()">restapi.e-conomic.com</a>' + crumbPath + '?demo=true' + parameters;
+						jQuery('.fullpath').html(crumbUrl);
+			        	
+			        	//make full_path available to copy-to-clipboard
 			        	jQuery('.copyme').val(call_url);
+			        	
+			        	//ajax call
 			        	jQuery.ajax({ dataType: 'json', url: call_url, context: document.body }).complete(function(data) {
 
 
 		            		var d = jQuery.parseJSON(data['responseText']);
 		            		jQuery('#output').text(JSON.stringify(d, null, 4));
 		            		jQuery('.httpstatus').text(data['status']);
-		            		if (data['status'] >= 400) {
+		            		if (data['status'] >= 500) {
 			            		jQuery('.httpstatus').css("background-color", "red");
 			            		jQuery('.fullpath').css("background-color", "#DCC");
+			        		}
+		            		else if (data['status'] >= 400) {
+			            		jQuery('.httpstatus').css("background-color", "orange");
+			            		jQuery('.fullpath').css("background-color", "#EDC");
 			        		}
 			        		else {
 			        			jQuery('.httpstatus').css("background-color", "green");
@@ -291,19 +310,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				var copyBtn = document.querySelector('.copybtn');
 
 				copyBtn.addEventListener('click', function(event) {
-					var copyMe = document.querySelector('.copyme');
-					copyMe.select();
-
-					try {
-						var successful = document.execCommand('copy');
-						var msg = successful ? 'successful' : 'unsuccessful';
-						console.log('Copying text command was ' + msg);
-						} catch (err) {
-						console.log('Oops, unable to copy');
-					}
+					var hiddenInputContents = document.querySelector('.copyme');
+					hiddenInputContents.select();
+					document.execCommand('copy');
+					$('.copyme').blur();
 				});
-
-
 			</script>
 			</div>
 			</div>
