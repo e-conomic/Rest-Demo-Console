@@ -335,6 +335,7 @@
 			$('.copybtn').on('click', function(event) {
 				$('.card').toggleClass('applyflip');
 				$('.copyme').select();
+				return false;
 			});
 			//Rotate back when out of focus
 			$('.copyme').on('focusout', function(event) {
