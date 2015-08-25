@@ -332,10 +332,10 @@
 			});
 
 			//Copy full_url to clipboard
-			$('.copybtn').on('mouseup', function(event) {
+			$('.copybtn').on('click', function(event) {
 				$('.card').toggleClass('applyflip');
-				$('.copyme').select();
-				return false;
+				//$('.copyme').select();
+				setTimeout(function() { $('.copyme').select(); }, 400);
 			});
 			//Rotate back when out of focus
 			$('.copyme').on('focusout', function(event) {
