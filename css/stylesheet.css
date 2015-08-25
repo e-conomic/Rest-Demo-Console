@@ -293,7 +293,7 @@ button:hover {
 }
 
 #container.hover .back {
-	-ms-transform: rotateX(0deg);
+	/*-ms-transform: rotateX(0deg);*/
 }
 #container.hover .front {
 	-ms-transform: rotateX(180deg);
