@@ -343,7 +343,7 @@ button:hover {
 }
 */
 /******** New flippin magic FUCK YOU IE *********/
-.card {
+#card {
 	perspective: 1000px;
 	-webkit-perspective: 1000px;
 	-moz-perspective: 1000px;
@@ -357,7 +357,7 @@ button:hover {
 	display:block;
 }
 
-.card .content {
+#card .content {
 	transition: 0.5s ease-out;
 	-webkit-transition: 0.5s ease-out;
 	-moz-transition: 0.5s ease-out;

@@ -332,12 +332,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 				//Copy full_url to clipboard
 				$('.copybtn').on('click', function(event) {
-					$('#card').toggleClass('applyflip');
+					$('.card').toggleClass('applyflip');
 					$('.copyme').select();
 				});
 				//Rotate back when out of focus
 				$('.copyme').on('focusout', function(event) {
-					$('#card').toggleClass('applyflip');
+					$('.card').toggleClass('applyflip');
 				});
 			</script>
 			</div>
