@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://www.e-conomic.com/css/facelift.css?open&amp;v=2" media="screen">
 	<link rel="stylesheet" href="css/stylesheet.css">
 	<link rel="stylesheet" href="css/highlight.styles/tomorrow.css">
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<script>
 		$(document).ready(function(){
 			url_handler();
@@ -91,14 +92,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <aside class="row md_bgr_t4 md_bredcrumbs_cta pbm">
 	<div class="wrap">
 		<nav class="cell s3of4 fs8 fc6">
-						<ul class="md_inlb md_breadcrumbs ptm">
-												<li><a href="https://www.e-conomic.com">Home page</a></li>
-												<li><a href="https://www.e-conomic.com">Developer</a></li>
-																<li class="sel">REST Demo</li>
-															</ul>
-            		</nav>
-		<div class="cell s1of4">
-					</div>
+			<ul class="md_inlb md_breadcrumbs ptm">
+				<li><a href="https://www.e-conomic.com">Home page</a></li>
+				<li><a href="https://www.e-conomic.com">Developer</a></li>
+				<li class="sel">REST Demo</li>
+			</ul>
+        </nav>
+		<div class="cell s1of4"></div>
 	</div>
 </aside>
 	<div class="row pbe md_bgr_t4">
@@ -106,20 +106,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			<div class="cell s1of1" id="demo">
 				<h1 class="hs2">REST Demo</h1>
 				
-				<div class="oj_static" onclick="restget('')" style="width: 220px; border-radius: 3px 0 0 0" title="Click to go to root" style="cursor: hand;cursor: pointer;"><p style="cursor: hand;cursor: pointer;">https://restapi.e-conomic.com/</p></div>
-				<div class="inputholder"><input id="requestpath" class="md_input_w3 md_input_t1" type="text" placeholder="products/" size="20" /><i id="pathhelp"><span class="question-circle">?</span></i></div>
-				<div class="oj_static" style="width: 100px;">?demo=true</div>
-				<div class="inputholder"><input id="parameters" class="md_input_w3 md_input_t1" type="text" placeholder="&filter=productNumber$lt:102" size="20" /><i id="filterhelp"><span class="question-circle">?</span></i></div>
-				<button onclick="interactive_call();save_history();return false;" class="md_but_t2 fs8" style="width: 60px; text-align: center; border-radius: 0 3px 0 0;">Go</button>
-				<br>
+				<div class="input-group">
+					<span class="input-group-addon" onclick="restget('')" style="border-radius: 3px 0 0 0; cursor:pointer;" title="Click to go to root">https://restapi.e-conomic.com/</span>
+					<input id="requestpath" class="form-control" placeholder="products/" type="text">
+					<div class="input-group-btn">
+						<button id="pathhelp" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-info-sign"></i></button>
+					</div>
+					<span class="input-group-addon" style="border-radius: 0;">?demo=true</span>
+					<input id="parameters" class="form-control" placeholder="&filter=productNumber$lt:102" type="text">
+					<div class="input-group-btn">
+						<button id="filterhelp" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-info-sign"></i></button>
+					</div>
+					<span class="input-group-btn"><button onclick="interactive_call();save_history();return false;" class="btn btn-primary" style="border-radius: 0 3px 0 0">Go</button></span>
+				</div>
+			
 				<div class="info">Examples? <a onclick="restget('products', '&filter=productNumber$gt:112')">ProductNumbers greater than 112</a> or perhaps <a  onclick="restget('invoices-experimental/drafts', '&filter=date$eq:2014-11-21')">Invoice drafts from Nov. 21st 2014</a> or even <a onclick="restget('invoices-experimental/drafts', '&sort=customer.customerNumber')">sort invoice drafts by customerNumber</a></div>
 				
-				<input class="copyme" style="display:block" />
-				<div class="responsetools"><div class="httpstatus"></div><div class="fullpath"></div><button class="copybtn md_but_t2 fs8">copy url</button></div>
+				<div class="responsetools">
+					<div class="httpstatus"></div>
+					<div class="patharea">
+						<div id="container">
+							<div id="flipper" class="shadow">
+							  <div class="front">
+							    <div class="fullpath"></div>
+							  </div>
+							  <div class="back">
+							    <input class="copyme" />
+							  </div>
+							</div>
+						</div>
+					</div>
+					<button class="copybtn">copy url</button>
+				</div>
 				
-				<pre id="restcontainer"><button class="btn-fullscreen">Toggle full width</button><code id="output" class="json">...</code></pre>
-				<aside class="info md_rad2">Want to POST, PUT etc.? <a href="https://www.e-conomic.com/developer">Sign up</a> for a developer agreement and try out one of these awesome REST-clients we use in our daily work:<br> 
-				<a href="https://www.getpostman.com">PostMan</a> stand-alone chrome-app, <a href="https://addons.mozilla.org/en/firefox/addon/restclient/">RESTClient for FireFox</a>, <a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo">Advanced REST Client for Chrome</a><br>P.S. our favorite proxy tool <a href="www.telerik.com/fiddler">Fiddler</a> deserves a mention as it absolutely rocks!</aside>
+				<div id="restcontainer">
+					<button class="btn-fullscreen">Toggle full width</button>
+					<code id="output" class="json">...</code>
+				</div>
+				<aside class="info">Want to POST, PUT etc.? <a href="https://www.e-conomic.com/developer">Sign up</a> for a developer agreement and try out one of these awesome REST-clients we use in our daily work:<br><a href="https://www.getpostman.com">PostMan</a> stand-alone chrome-app, <a href="https://addons.mozilla.org/en/firefox/addon/restclient/">RESTClient for FireFox</a>, <a href="https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo">Advanced REST Client for Chrome</a><br>P.S. our favorite proxy tool <a href="www.telerik.com/fiddler">Fiddler</a> also deserves a mention.</aside>
 
 			<script>
 			    function restget(aPath, aParameters){
@@ -191,7 +215,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			        		}
 			        		
 		            		//Run highlight.js on our code block
-		            		$('pre code').each(function(i, block) {
+		            		$('#restcontainer>code').each(function(i, block) {
 		                		hljs.highlightBlock(block);
 		              		});
 
@@ -292,7 +316,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				});
 				
 				//RestDocs link for #requestpath
-				$("#pathhelp > .question-circle").click(function() {
+				$("#pathhelp").click(function() {
 					helpurl = jQuery('#requestpath').val();
 					if(typeof helpurl !== 'undefined'){
 						if (helpurl.indexOf("/") > -1) {
@@ -307,13 +331,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				});
 
 				//Copy full_url to clipboard
-				var copyBtn = document.querySelector('.copybtn');
-
-				copyBtn.addEventListener('click', function(event) {
-					var hiddenInputContents = document.querySelector('.copyme');
-					hiddenInputContents.select();
-					document.execCommand('copy');
-					$('.copyme').blur();
+				$('.copybtn').on('click', function(event) {
+					$('#container').toggleClass('hover');
+					$('.copyme').select();
+				});
+				//Rotate back when out of focus
+				$('.copyme').on('focusout', function(event) {
+					$('#container').toggleClass('hover');
 				});
 			</script>
 			</div>
