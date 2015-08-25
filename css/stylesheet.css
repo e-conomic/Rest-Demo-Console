@@ -181,7 +181,7 @@ button:hover {
     text-shadow: none;
 }
 /* MS placeholder only style */   
-input#filterhelp:-ms-input-placeholder, input#pathhelp:-ms-input-placeholder {
+input:-ms-input-placeholder {
     font-style:bold;        
     color: #CCC;
   }
